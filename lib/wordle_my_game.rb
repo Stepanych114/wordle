@@ -7,28 +7,32 @@ class Wordle
     "_"*word.length
   end
   def try(attempt)
-    attempt=attempt.upcase
+    alrwas=""
+    if attempt.length != @word.length
+      return "Неверная длина слова. Попробуйте еще раз."
+    end
+    s=attempt.upcase
     result=""
-    if attempt==@word
+    if s==@word
       return "Ответ найден, Вы победили!"
     end
-    if @attempts>0
-      @attempts-=1
-      @word.chars.each_with_index do |c, i|
-        if c == attempt[i]
-          result<<"🟩"
-        elsif @word.include?(attempt[i])
-          result<<"🟨"
-        else
-          result<<"⬛"
-        end
+    @attempts-=1
+    @word.chars.each_with_index do |c, i|
+      if c == s[i] && alrwas.count(s[i].upcase)<@word.count(s[i].upcase)
+        result+="🟩"
+        alrwas+=s[i].upcase
+      elsif @word.include?(s[i]) && alrwas.count(s[i].upcase)<@word.count(s[i].upcase)
+        result+="🟨"
+        alrwas+=s[i].upcase
+      else
+        result+="⬛"
       end
-      if result=="🟩"*@word.length
-        return "Ответ найден, ты победил!"
-      end
-      return "Попыток осталось: #{@attempts} | Результат: #{result}"
-    else
+    end
+    if result=="🟩"*@word.length
+      return "Ответ найден, ты победил!"
+    elsif @attempts<=0
       return "Попыток не осталось. Ответом было слово: '#{@word}'. Вы проиграли!"
     end
+    return "Попыток осталось: #{@attempts} | Результат: #{result}"
   end
 end
