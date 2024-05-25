@@ -3,7 +3,8 @@ class Wordle
   def initialize(word)
     @word = word.upcase
     @attempts = 6
-    "_" * word.length
+    puts "Добро Пожаловать в игру Wordle! Длина слова: #{@word.length}. Попыток осталось: #{@attempts}"
+    puts "Введите Слово: "
   end
   def try(attempt)
     alrwas = ""
@@ -22,7 +23,7 @@ class Wordle
         alrwas += s[i]
       elsif @word.include?(s[i]) && alrwas.count(s[i].upcase) < @word.count(s[i])
         result += "🟨"
-        alrwas + s[i]
+        alrwas += s[i]
       else
         result += "⬛"
       end
