@@ -3,5 +3,5 @@ Gem::Specification.new do |s|
   s.version = '0.1.0'
   s.authors = ['Daniil Stepanyan']
   s.summary = "Логика для игры типа Wordle с произвольным числом букв в слове."
-  spec.files = Dir['lib/**/*.rb']
+  s.files = Dir['lib/**/*.rb']
 end
