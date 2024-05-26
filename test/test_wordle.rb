@@ -11,7 +11,7 @@ class WordleTest < Minitest::Test
   end
 
   def test_start_game
-    assert_output ("Добро Пожаловать в игру Wordle! Длина слова: 5. Попыток осталось: 6\nВведите Слово: \n") {Wordle.new("СЛОВО")}
+    assert_output ("Добро Пожаловать в игру Wordle! Длина слова: 5. Попыток осталось: 6\nВведите слово:\n") {Wordle.new("СЛОВО")}
   end
 
   def test_wrong_length
@@ -32,7 +32,11 @@ class WordleTest < Minitest::Test
     assert_equal "Попыток осталось: 4 | Результат: ⬛🟩⬛🟩🟩⬛", game.try("пощада")
     assert_equal "Ответ найден, Вы победили!", game.try("лошадь")
   end
-
+  def test_check_positions
+    game = Wordle.new("слово")
+    assert_equal "Попыток осталось: 5 | Результат: 🟨🟨⬛⬛⬛", game.try("ооооо")
+    assert_equal "Попыток осталось: 4 | Результат: 🟨🟨🟩🟨🟨", game.try("оволс")
+  end
   def test_no_attempts
     game = Wordle.new("сложно")
     for i in 1..5 do
